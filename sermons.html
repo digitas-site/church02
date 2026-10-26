@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>説教ブログ｜福岡中央教会</title>
+<meta name="description" content="福岡中央教会の日曜礼拝の説教を、毎週短くまとめてお届けします。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+KR:wght@400;500&display=swap">
+<style>
+:root{--bg:#F6F4F0;--bg2:#ECE8E1;--ink:#24221F;--muted:#69645D;--line:#D8D3CB;--accent:#8A6E52;--inv:#F6F4F0;--cur:#FFFFFF;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1C1B19;--bg2:#252320;--ink:#EDE9E2;--muted:#ABA49A;--line:#3A3733;--accent:#C9AC8C;--inv:#1C1B19;--cur:#FFFFFF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1C1B19;--bg2:#252320;--ink:#EDE9E2;--muted:#ABA49A;--line:#3A3733;--accent:#C9AC8C;--inv:#1C1B19;--cur:#FFFFFF;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;font-size:16px;line-height:2;letter-spacing:.05em;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+svg{display:block;width:100%;height:100%}
+.en{font-family:'Marcellus','Times New Roman',serif;letter-spacing:.06em}
+.kr{font-family:'Noto Sans KR',sans-serif}
+.wrap{width:min(1200px,100% - 48px);margin-inline:auto}
+img,svg{max-width:100%}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:clip-path 1.2s cubic-bezier(.77,0,.18,1) .2s;clip-path:inset(0 0 0 0)}
+.loader span{font-size:clamp(20px,3vw,28px);opacity:0;animation:fadeIn 1s .2s forwards}
+body.loaded .loader{clip-path:inset(0 0 100% 0)}
+@keyframes fadeIn{to{opacity:1}}
+
+/* cursor */
+.cursor,.cursor-dot{mix-blend-mode:difference;position:fixed;left:0;top:0;pointer-events:none;z-index:200;border-radius:50%;display:none}
+.has-cursor .cursor{display:grid}.has-cursor .cursor-dot{display:block}
+.has-cursor,.has-cursor a,.has-cursor button{cursor:none}
+.cursor{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid var(--cur);display:grid;place-items:center;transition:width .4s cubic-bezier(.2,.8,.2,1),height .4s cubic-bezier(.2,.8,.2,1),margin .4s cubic-bezier(.2,.8,.2,1),background .4s,border-color .4s}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--cur)}
+.cursor .lbl{font-family:'Marcellus',serif;font-size:13px;letter-spacing:.1em;color:var(--bg);white-space:nowrap;opacity:0;transition:opacity .3s}
+.cursor.is-link{width:64px;height:64px;margin:-32px 0 0 -32px;background:color-mix(in srgb,var(--cur) 12%,transparent);border-color:transparent}
+.cursor.is-label{width:96px;height:96px;margin:-48px 0 0 -48px;background:var(--ink);border-color:var(--ink);mix-blend-mode:normal}
+.cursor.is-label .lbl{opacity:1}
+.cursor.is-down{transform-origin:center}
+.cursor-dot.hide{opacity:0!important}
+
+/* header */
+.hd{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:transform .6s cubic-bezier(.2,.8,.2,1),background .4s}
+.hd.scrolled{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px)}
+.hd.hide{transform:translateY(-100%)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 32px}
+.logo{display:flex;flex-direction:column;line-height:1.4}
+.logo b{font-weight:700;font-size:20px;letter-spacing:.14em}
+.logo small{font-size:12px;color:var(--muted)}
+.hd.on-hero:not(.scrolled) .logo,.hd.on-hero:not(.scrolled) .gnav a,.hd.on-hero:not(.scrolled) .mbtn{color:#FFFFFF}
+.hd.on-hero:not(.scrolled) .logo small{color:#E9E4DC}
+.gnav{display:flex;gap:28px;align-items:center}
+.gnav a{font-size:15px;padding:8px 0;position:relative}
+.gnav a::after{content:"";position:absolute;left:0;bottom:2px;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gnav a:hover::after{transform:scaleX(1);transform-origin:left}
+.mbtn{background:none;border:0;color:var(--ink);font:inherit;display:flex;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
+.mbtn i{display:block;width:28px;height:8px;position:relative}
+.mbtn i::before,.mbtn i::after{content:"";position:absolute;left:0;width:100%;height:1px;background:currentColor;transition:transform .5s}
+.mbtn i::before{top:0}.mbtn i::after{bottom:0}
+body.menu-open .mbtn i::before{transform:translateY(3.5px) rotate(20deg)}
+body.menu-open .mbtn i::after{transform:translateY(-3.5px) rotate(-20deg)}
+@media (max-width:900px){.gnav{display:none}.hd-in{padding:16px 20px}}
+
+/* menu */
+.menu{position:fixed;inset:0;z-index:45;background:var(--bg2);display:flex;align-items:center;clip-path:circle(0% at calc(100% - 60px) 40px);transition:clip-path 1s cubic-bezier(.77,0,.18,1);padding:calc(96px + env(safe-area-inset-top,0px)) 0 env(safe-area-inset-bottom,0px)}
+body.menu-open .menu{clip-path:circle(150% at calc(100% - 60px) 40px)}
+body.menu-open .hd .logo,body.menu-open .hd .mbtn{color:var(--ink)!important}
+.menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.menu li{overflow:hidden}
+.menu li a{display:flex;align-items:baseline;gap:20px;transform:translateY(110%);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+body.menu-open .menu li a{transform:none}
+.menu li a .en{font-size:clamp(34px,6vw,64px);line-height:1.3}
+.menu li a span:last-child{font-size:14px;color:var(--muted)}
+.menu li a:hover .en{color:var(--accent)}
+
+/* hero */
+.hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;color:#FFFFFF}
+.slides{position:absolute;inset:0}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 2s ease}
+.slide.on{opacity:1}
+.slide svg{transform:scale(1.12);transition:transform 8s linear}
+.slide.on svg{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(20,18,16,.32)}
+.hero-copy{position:absolute;z-index:2;left:max(32px,6vw);bottom:max(80px,12vh);display:flex;flex-direction:column;gap:14px}
+.hero h1{margin:0;font-weight:500;font-size:clamp(36px,6.4vw,84px);line-height:1.35;letter-spacing:.14em}
+.hero .en{font-size:clamp(18px,2vw,26px)}
+.hero-ind{position:absolute;z-index:2;right:32px;bottom:40px;display:flex;align-items:center;gap:14px;font-size:14px}
+.hero-ind .bar{width:120px;height:1px;background:rgba(255,255,255,.4);position:relative;overflow:hidden}
+.hero-ind .bar i{position:absolute;inset:0;background:#FFFFFF;transform-origin:left;transform:scaleX(0)}
+.hero-ind .bar i.run{animation:prog 6s linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+.scroll-cue{position:absolute;z-index:2;left:50%;bottom:0;width:1px;height:72px;background:rgba(255,255,255,.35);overflow:hidden}
+.scroll-cue::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:#FFFFFF;animation:cue 2.4s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes cue{to{top:100%}}
+
+/* split text */
+.split .ch{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.14em;margin-bottom:-.14em}
+.split .ch>span{display:inline-block;transform:translateY(105%);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.split.in .ch>span{transform:none}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s cubic-bezier(.2,.8,.2,1),transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.curtain{position:relative;overflow:hidden;--cov:var(--bg)}
+.feat .curtain,#pastor .curtain{--cov:var(--bg2)}
+.curtain::after{content:"";position:absolute;inset:0;z-index:2;background:var(--cov);transform-origin:top;transition:transform 1.4s cubic-bezier(.77,0,.18,1)}
+.curtain.in::after{transform:scaleY(0)}
+.feat-imgs.curtain{position:sticky}
+@media (max-width:900px){.feat-imgs.curtain{position:relative}}
+.curtain svg{transform:scale(1.2);transition:transform 2s cubic-bezier(.2,.8,.2,1)}
+.curtain.in svg{transform:scale(1)}
+.no-js .rv{opacity:1;transform:none}.no-js .curtain::after{display:none}
+.no-js .split .ch>span{transform:none}
+
+/* sections */
+section{padding:clamp(96px,14vw,180px) 0}
+.sec-hd{display:flex;flex-direction:column;gap:4px;margin-bottom:56px}
+.sec-hd .en{font-size:clamp(44px,7vw,96px);line-height:1;color:var(--ink)}
+.sec-hd h2{margin:0;font-size:15px;font-weight:500;color:var(--muted);letter-spacing:.2em}
+.lead{font-size:clamp(22px,2.6vw,32px);line-height:1.8;font-weight:500;letter-spacing:.12em;margin:0}
+.lead-en{font-size:16px;color:var(--muted);margin:8px 0 0}
+.body{color:var(--muted);margin:0;max-width:34em}
+.more{display:inline-flex;align-items:center;gap:18px;padding:12px 0;font-family:'Marcellus',serif;font-size:17px}
+.more .circ{width:52px;height:52px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .5s,border-color .5s,color .5s}
+.more .circ svg{width:14px;height:14px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.more:hover .circ{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.more:hover .circ svg{transform:translateX(4px)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.about-text{grid-column:1/7;display:flex;flex-direction:column;gap:32px}
+.about-img1{grid-column:8/13;aspect-ratio:4/5}
+.about-img2{grid-column:5/9;aspect-ratio:4/3;margin-top:-80px}
+@media (max-width:900px){.about-text{grid-column:1/-1}.about-img1{grid-column:3/-1}.about-img2{grid-column:1/9;margin-top:-40px}}
+
+/* features */
+.feat{background:var(--bg2)}
+.feat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px;align-items:start}
+@media (max-width:900px){.feat-grid{grid-template-columns:1fr}}
+.feat-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.feat-list li{border-bottom:1px solid var(--line)}
+.feat-list button{all:unset;display:grid;grid-template-columns:56px 1fr;gap:8px 16px;padding:32px 4px;width:100%;box-sizing:border-box;cursor:pointer}
+.feat-list .num{font-family:'Marcellus',serif;font-size:28px;color:var(--muted);transition:color .4s}
+.feat-list .t{font-size:clamp(18px,2vw,22px);font-weight:700;letter-spacing:.08em}
+.feat-list .d{grid-column:2;color:var(--muted);font-size:15px;max-height:0;overflow:hidden;opacity:0;transition:max-height .8s cubic-bezier(.2,.8,.2,1),opacity .6s}
+.feat-list li.on .d{max-height:200px;opacity:1}
+.feat-list li.on .num{color:var(--accent)}
+.feat-imgs{position:sticky;top:120px;aspect-ratio:4/3;overflow:hidden}
+.feat-imgs>div{position:absolute;inset:0;opacity:0;transform:scale(1.06);transition:opacity 1s,transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.feat-imgs>div.on{opacity:1;transform:none}
+@media (max-width:900px){.feat-imgs{position:relative;top:0}}
+
+/* worship */
+.ws-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+@media (max-width:900px){.ws-grid{grid-template-columns:1fr}}
+.ws-card{background:var(--bg2);padding:clamp(32px,4vw,56px);display:flex;flex-direction:column;gap:20px}
+.ws-card .en{font-size:clamp(28px,3vw,40px);line-height:1.2}
+.ws-card h3{margin:0;font-size:20px;letter-spacing:.1em}
+.ws-list{margin:0;border-top:1px solid var(--line)}
+.ws-list div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ws-list dt{color:var(--muted)}.ws-list dd{margin:0;font-family:'Marcellus',serif;font-size:19px}
+
+/* message carousel */
+.msg-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px}
+.msg-top .sec-hd{margin:0}
+.track{--gut:max(24px,calc((100vw - 1200px)/2));display:flex;gap:28px;overflow-x:auto;padding:0 var(--gut) 24px;scroll-padding-inline:var(--gut);scroll-snap-type:x proximity;scrollbar-width:none;cursor:grab;user-select:none}
+.track::-webkit-scrollbar{display:none}
+.track.drag{cursor:grabbing;scroll-snap-type:none}
+.card{flex:0 0 clamp(260px,30vw,380px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px}
+.card-img{aspect-ratio:4/3;overflow:hidden}
+.card-img svg{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.card:hover .card-img svg{transform:scale(1.06)}
+.card-meta{display:flex;gap:16px;font-size:13px;color:var(--muted)}
+.card-title{margin:0;font-size:19px;font-weight:700;letter-spacing:.08em}
+.card-sub{margin:0;font-size:14px;color:var(--muted)}
+.progress{width:min(1200px,100% - 48px);margin:32px auto 0;height:1px;background:var(--line);position:relative}
+.progress i{position:absolute;left:0;top:0;height:100%;background:var(--ink);width:20%}
+
+/* pastor */
+.pastor-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.pastor-img{grid-column:1/6;aspect-ratio:4/5}
+.pastor-txt{grid-column:7/13;display:flex;flex-direction:column;gap:28px}
+@media (max-width:900px){.pastor-img{grid-column:1/-1}.pastor-txt{grid-column:1/-1}}
+.links{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.links a{display:flex;justify-content:space-between;padding:18px 4px;border-bottom:1px solid var(--line);transition:padding .5s cubic-bezier(.2,.8,.2,1),color .4s}
+.links a:hover{padding-left:16px;color:var(--accent)}
+
+/* access */
+.acc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px}
+@media (max-width:900px){.acc-grid{grid-template-columns:1fr;gap:40px}}
+.acc-map{aspect-ratio:4/3;overflow:hidden}
+
+/* contact */
+.contact{padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.contact a{display:block;padding:clamp(72px,10vw,140px) 0;overflow:hidden;position:relative}
+.contact .big{display:flex;width:max-content;font-size:clamp(56px,10vw,150px);line-height:1;white-space:nowrap;animation:marq 30s linear infinite;animation-play-state:paused}
+.contact a:hover .big{animation-play-state:running}
+.contact .big span{padding-right:.6em}
+.contact .sub{text-align:center;margin-top:24px;color:var(--muted)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* footer */
+.ft{position:relative;color:#F2EEE7;overflow:hidden;padding:clamp(80px,10vw,120px) 0 40px}
+.ft-bg{position:absolute;inset:0}
+.ft-bg>div{position:absolute;inset:0;opacity:0;transition:opacity 2s}
+.ft-bg>div.on{opacity:1}
+.ft-bg::after{content:"";position:absolute;inset:0;background:rgba(20,18,16,.5)}
+.ft-in{position:relative;display:flex;flex-direction:column;gap:56px}
+.ft-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px}
+.ft nav{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:4px 40px}
+.ft nav a{padding:6px 0;opacity:.85}.ft nav a:hover{opacity:1}
+.sns{display:flex;gap:12px;flex-wrap:wrap}
+.sns a{border:1px solid rgba(242,238,231,.4);border-radius:999px;padding:10px 20px;font-size:14px;transition:background .4s,color .4s}
+.sns a:hover{background:#F2EEE7;color:#24221F}
+.ft small{opacity:.7}
+
+[data-magnetic]{display:inline-block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion: reduce){
+*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.rv,.split .ch>span{opacity:1!important;transform:none!important}.curtain::after{display:none}
+.slide svg{transform:none}
+}
+</style>
+<style>
+.page-hd{padding:calc(160px + env(safe-area-inset-top,0px)) 0 64px;border-bottom:1px solid var(--line)}
+.post-wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.post{grid-column:1/8;display:flex;flex-direction:column;gap:36px}
+.side{grid-column:9/13;display:flex;flex-direction:column;gap:28px;position:sticky;top:120px;align-self:start}
+@media (max-width:900px){.post,.side{grid-column:1/-1;position:static}}
+.post h1{margin:0;font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:.1em;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;color:var(--muted);font-size:14px}
+.verse{background:var(--bg2);padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:10px}
+.verse p{margin:0;font-size:clamp(18px,2vw,22px);line-height:2;letter-spacing:.1em}
+.verse small{color:var(--muted)}
+.post h2{margin:0 0 8px;font-size:20px;letter-spacing:.1em}
+.post .body{max-width:none}
+.kr-sum{border-left:1px solid var(--line);padding-left:24px}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js');</script>
+<div class="loader" aria-hidden="true"><span>福岡中央教会</span></div>
+<div class="cursor" aria-hidden="true"><span class="lbl"></span></div><div class="cursor-dot" aria-hidden="true"></div>
+
+<header class="hd" id="hd">
+<div class="hd-in">
+<a class="logo" href="index.html"><b>福岡中央教会</b><small class="kr">후쿠오카중앙교회</small></a>
+<nav class="gnav" aria-label="メインメニュー">
+<a class="en" href="index.html#about">About</a><a class="en" href="index.html#worship">Worship</a><a class="en" href="index.html#message">Message</a><a class="en" href="index.html#access">Access</a>
+</nav>
+<button class="mbtn en" type="button" aria-expanded="false" aria-controls="menu"><span class="mlbl">Menu</span><i></i></button>
+</div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+<div class="wrap"><ul>
+<li><a href="index.html#about"><span class="en">About</span><span>教会について</span></a></li>
+<li><a href="index.html#features"><span class="en">Welcome</span><span>初めての方へ</span></a></li>
+<li><a href="index.html#worship"><span class="en">Worship</span><span>礼拝のご案内</span></a></li>
+<li><a href="index.html#message"><span class="en">Message</span><span>説教</span></a></li>
+<li><a href="index.html#pastor"><span class="en">Greeting</span><span>牧師より</span></a></li>
+<li><a href="index.html#access"><span class="en">Access</span><span>アクセス</span></a></li>
+</ul></div>
+</div>
+
+<main id="top">
+<div class="page-hd"><div class="wrap">
+<div class="sec-hd" style="margin:0"><span class="en split">Message</span><h2>説教ブログ ・ 毎週日曜日に更新</h2></div>
+<p class="body rv" style="margin-top:24px">日曜礼拝で語られたメッセージを、短くまとめてお届けします。礼拝に来られなかった週も、ここで読めます。</p>
+</div></div>
+
+<section style="padding-top:clamp(64px,8vw,112px)">
+<div class="wrap post-wrap">
+<article class="post">
+<div class="meta en rv"><span>[2026.11.01]</span><span>主日礼拝</span><span>聖書：[聖書箇所]</span><span>説教：[説教者名]</span></div>
+<h1 class="rv">[説教タイトル]</h1>
+<div class="verse rv"><small class="en">Today's Word</small><p>[聖書の一節をここに載せます]</p><small>[書名 ◯章◯節]</small></div>
+<div class="rv"><h2>はじめに</h2><p class="body">[説教の導入。身近な例え話や、今週のテーマを2〜3文で。]</p></div>
+<div class="rv"><h2>ポイント1　[小見出し]</h2><p class="body">[1つ目の要点を短い段落で。]</p></div>
+<div class="rv"><h2>ポイント2　[小見出し]</h2><p class="body">[2つ目の要点を短い段落で。]</p></div>
+<div class="rv"><h2>今週を生きるために</h2><p class="body">[この一週間、生活の中で意識してほしいことを一つ。]</p></div>
+<div class="kr-sum rv"><h2 class="kr">한국어 요약</h2><p class="body kr">[설교 요약을 한국어로 2〜3문장.]</p></div>
+<a class="more rv" href="https://www.youtube.com/channel/UCvT4we_DUOTJrDzo_u7gYMg" target="_blank" rel="noopener" data-magnetic><span>Watch on YouTube</span><span class="circ"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span></a>
+</article>
+<aside class="side" aria-label="これまでの説教">
+<div class="sec-hd" style="margin:0"><span class="en" style="font-size:clamp(28px,3vw,40px)">Archive</span><h2>これまでの説教</h2></div>
+<ul class="links"><li><a href="sermons.html"><span><span class="en" style="color:var(--muted);font-size:13px;display:block">[2026.10.25]</span>[説教タイトル]</span><span class="en">→</span></a></li><li><a href="sermons.html"><span><span class="en" style="color:var(--muted);font-size:13px;display:block">[2026.10.18]</span>[説教タイトル]</span><span class="en">→</span></a></li><li><a href="sermons.html"><span><span class="en" style="color:var(--muted);font-size:13px;display:block">[2026.10.11]</span>[説教タイトル]</span><span class="en">→</span></a></li><li><a href="sermons.html"><span><span class="en" style="color:var(--muted);font-size:13px;display:block">[2026.10.04]</span>[説教タイトル]</span><span class="en">→</span></a></li></ul>
+<div class="verse"><small class="en">Worship</small><p style="font-size:16px">日曜 9:30 / 11:00 / 13:30<br>福岡市中央区長浜3-1-8</p></div>
+<a class="more" href="index.html#worship" data-magnetic><span>礼拝のご案内</span><span class="circ"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span></a>
+</aside>
+</div>
+</section>
+<div class="contact">
+<a href="mailto:fukuokachuochurch@gmail.com" data-cursor="Mail">
+<div class="big en" aria-hidden="true"><span>Get in Touch</span><span>Get in Touch</span><span>Get in Touch</span><span>Get in Touch</span></div>
+<p class="sub">お問い合わせ・初めての方のご相談はこちら</p>
+</a>
+</div>
+
+</main>
+
+<footer class="ft">
+<div class="ft-bg"><div class="on"><svg aria-hidden="true" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#3B3F3C"/><circle cx="1200" cy="260" r="110" fill="#E9D7B5" opacity=".6"/><rect x="660" y="420" width="280" height="360" fill="#4D4B45"/><polygon points="630,430 800,290 970,430" fill="#57524A"/><rect x="760" y="520" width="80" height="140" rx="40" fill="#E7C27A" opacity=".85"/></svg></div><div class=""><svg aria-hidden="true" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#36403E"/><circle cx="200" cy="200" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="400" cy="120" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="700" cy="260" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="1000" cy="150" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="1300" cy="300" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="1450" cy="120" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="900" cy="80" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="300" cy="380" r="4" fill="#F3E3BC" opacity=".7"/><path d="M0 760Q800 640 1600 760V1000H0Z" fill="#2C3330"/></svg></div></div>
+<div class="wrap ft-in">
+<div class="ft-top">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:22px;letter-spacing:.16em">福岡中央教会</span>
+<span class="kr" style="font-size:14px;opacity:.8">후쿠오카중앙교회</span>
+<span style="font-size:14px;opacity:.8;line-height:2">〒810-0072 福岡市中央区長浜3丁目1-8<br>TEL 092-707-1721</span>
+</div>
+<nav aria-label="フッターメニュー">
+<a class="en" href="index.html#about">About</a><a class="en" href="index.html#worship">Worship</a><a class="en" href="index.html#features">Welcome</a><a class="en" href="index.html#message">Message</a><a class="en" href="index.html#pastor">Greeting</a><a class="en" href="index.html#access">Access</a>
+</nav>
+</div>
+<div class="sns">
+<a href="https://www.youtube.com/channel/UCvT4we_DUOTJrDzo_u7gYMg" target="_blank" rel="noopener">YouTube</a>
+<a href="https://www.instagram.com/fcc.friends" target="_blank" rel="noopener">Instagram</a>
+<a href="https://m.facebook.com/chuochurch.fukuoka" target="_blank" rel="noopener">Facebook</a>
+<a href="https://cafe.naver.com/withfukuokachurch" target="_blank" rel="noopener">Naver Cafe</a>
+</div>
+<small class="en">© Fukuoka Chuo Church</small>
+</div>
+</footer>
+
+<script>
+(function(){
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $ = function(s,c){return (c||document).querySelector(s)}, $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+
+/* split text into chars */
+$$('.split').forEach(function(el){
+  var html=''; var i=0;
+  el.innerHTML.split(/(<br\s*\/?>)/).forEach(function(part){
+    if(/^<br/.test(part)){html+=part;return}
+    Array.from(part).forEach(function(c){
+      if(c===' '){html+=' ';return}
+      html+='<span class="ch"><span style="transition-delay:'+(i*0.045).toFixed(3)+'s">'+c+'</span></span>'; i++;
+    });
+  });
+  el.setAttribute('aria-label', el.textContent);
+  el.innerHTML=html;
+});
+
+/* loader */
+window.addEventListener('load', start); setTimeout(start, 1800);
+var started=false;
+function start(){
+  if(started) return; started=true;
+  setTimeout(function(){
+    document.body.classList.add('loaded');
+    setTimeout(function(){ $$('.hero-split').forEach(function(e){e.classList.add('in')}); $$('.hero-rv').forEach(function(e,i){setTimeout(function(){e.classList.add('in')},500+i*200)}); runBar(); }, 700);
+  }, reduce?0:900);
+}
+
+/* reveal on scroll */
+var io = new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);} })}, {threshold:.18, rootMargin:'0px 0px -6% 0px'});
+$$('.rv:not(.hero-rv), .curtain, .split:not(.hero-split)').forEach(function(el){io.observe(el)});
+
+/* hero slideshow */
+var slides=$$('.slide'), cur=0, curEl=$('.hero-ind .cur'), bar=$('.hero-ind .bar i');
+function runBar(){ if(!bar) return; bar.classList.remove('run'); void bar.offsetWidth; bar.classList.add('run'); }
+if(slides.length) setInterval(function(){ slides[cur].classList.remove('on'); cur=(cur+1)%slides.length; slides[cur].classList.add('on'); curEl.textContent=('0'+(cur+1)).slice(-2); runBar(); }, 6000);
+
+/* footer slideshow */
+var fb=$$('.ft-bg>div'), fi=0; if(fb.length>1) setInterval(function(){ fb[fi].classList.remove('on'); fi=(fi+1)%fb.length; fb[fi].classList.add('on'); }, 5000);
+
+/* header */
+var hd=$('#hd'), lastY=0, heroH=$('.hero')?window.innerHeight:0;
+function onScroll(){
+  var y=window.scrollY;
+  hd.classList.toggle('scrolled', y>heroH-80);
+  hd.classList.toggle('hide', y>lastY && y>200 && !document.body.classList.contains('menu-open'));
+  lastY=y;
+  parallax();
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('resize', function(){heroH=$('.hero')?window.innerHeight:0}); onScroll();
+
+/* parallax */
+var px=$$('[data-parallax]');
+function parallax(){
+  if(reduce || !px) return;
+  px.forEach(function(el){ var r=el.getBoundingClientRect(); var c=r.top+r.height/2-window.innerHeight/2; el.style.translate='0 '+(c*parseFloat(el.dataset.parallax)).toFixed(1)+'px'; });
+}
+
+/* menu */
+var mbtn=$('.mbtn'), menu=$('#menu');
+mbtn.addEventListener('click', function(){
+  var open=document.body.classList.toggle('menu-open');
+  mbtn.setAttribute('aria-expanded', open); menu.setAttribute('aria-hidden', !open);
+  $('.mlbl').textContent = open?'Close':'Menu';
+  $$('.menu li a').forEach(function(a,i){ a.style.transitionDelay = open ? (0.3+i*0.07)+'s' : '0s'; });
+});
+$$('.menu a').forEach(function(a){ a.addEventListener('click', function(){ if(document.body.classList.contains('menu-open')) mbtn.click(); }) });
+
+/* features */
+var feats=$$('.feat-list li'), fimgs=$$('.feat-imgs>div');
+$$('.feat-list button').forEach(function(b){
+  function act(){ var n=+b.dataset.feat; feats.forEach(function(l,i){l.classList.toggle('on',i===n)}); fimgs.forEach(function(d,i){d.classList.toggle('on',i===n)}); }
+  b.addEventListener('mouseenter', act); b.addEventListener('click', act); b.addEventListener('focus', act);
+});
+
+/* drag carousel */
+var tr=$('.track'), prog=$('.progress i'), down=false, sx=0, sl=0, moved=false;
+if(tr){
+tr.addEventListener('pointerdown', function(e){ if(e.pointerType!=='mouse') return; down=true; moved=false; sx=e.clientX; sl=tr.scrollLeft; tr.classList.add('drag'); });
+window.addEventListener('pointermove', function(e){ if(!down) return; var dx=e.clientX-sx; if(Math.abs(dx)>4) moved=true; tr.scrollLeft=sl-dx; });
+window.addEventListener('pointerup', function(){ down=false; tr.classList.remove('drag'); });
+tr.addEventListener('click', function(e){ if(moved){ e.preventDefault(); moved=false; } }, true);
+tr.addEventListener('dragstart', function(e){e.preventDefault()});
+function upd(){ var max=tr.scrollWidth-tr.clientWidth; var w=tr.clientWidth/tr.scrollWidth*100; prog.style.width=w+'%'; prog.style.left=(max>0? tr.scrollLeft/max*(100-w):0)+'%'; }
+tr.addEventListener('scroll', upd, {passive:true}); window.addEventListener('resize', upd); upd();
+}
+
+/* custom cursor */
+var fine=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if(fine && !reduce){
+  document.documentElement.classList.add('has-cursor');
+  var cu=$('.cursor'), dot=$('.cursor-dot'), lbl=$('.cursor .lbl');
+  var mx=innerWidth/2, my=innerHeight/2, cx=mx, cy=my;
+  window.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; dot.style.transform='translate('+mx+'px,'+my+'px)'; });
+  (function loop(){ cx+=(mx-cx)*.16; cy+=(my-cy)*.16; cu.style.transform='translate('+cx+'px,'+cy+'px)'; requestAnimationFrame(loop); })();
+  document.addEventListener('mouseover', function(e){
+    var lab=e.target.closest('[data-cursor]'), link=e.target.closest('a,button');
+    cu.classList.remove('is-link','is-label'); dot.classList.remove('hide');
+    if(lab && (!link || link===lab || lab.contains(link))){ lbl.textContent=lab.dataset.cursor; cu.classList.add('is-label'); dot.classList.add('hide'); }
+    else if(link){ cu.classList.add('is-link'); }
+  });
+  document.addEventListener('mouseleave', function(){cu.style.opacity=0;dot.style.opacity=0});
+  document.addEventListener('mouseenter', function(){cu.style.opacity=1;dot.style.opacity=1});
+  /* magnetic */
+  $$('[data-magnetic]').forEach(function(el){
+    el.addEventListener('mousemove', function(e){ var r=el.getBoundingClientRect(); el.style.transform='translate('+((e.clientX-r.left-r.width/2)*.25)+'px,'+((e.clientY-r.top-r.height/2)*.35)+'px)'; });
+    el.addEventListener('mouseleave', function(){ el.style.transform=''; });
+  });
+}
+})();
+</script>
+</body>
+</html>

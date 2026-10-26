@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>福岡中央教会｜在日大韓基督教会</title>
+<meta name="description" content="福岡市中央区長浜の在日大韓基督教会 福岡中央教会。日本語と韓国語で礼拝をささげています。初めての方も歓迎します。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+KR:wght@400;500&display=swap">
+<style>
+:root{--bg:#F6F4F0;--bg2:#ECE8E1;--ink:#24221F;--muted:#69645D;--line:#D8D3CB;--accent:#8A6E52;--inv:#F6F4F0;--cur:#FFFFFF;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1C1B19;--bg2:#252320;--ink:#EDE9E2;--muted:#ABA49A;--line:#3A3733;--accent:#C9AC8C;--inv:#1C1B19;--cur:#FFFFFF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1C1B19;--bg2:#252320;--ink:#EDE9E2;--muted:#ABA49A;--line:#3A3733;--accent:#C9AC8C;--inv:#1C1B19;--cur:#FFFFFF;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;font-size:16px;line-height:2;letter-spacing:.05em;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+svg{display:block;width:100%;height:100%}
+.en{font-family:'Marcellus','Times New Roman',serif;letter-spacing:.06em}
+.kr{font-family:'Noto Sans KR',sans-serif}
+.wrap{width:min(1200px,100% - 48px);margin-inline:auto}
+img,svg{max-width:100%}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:clip-path 1.2s cubic-bezier(.77,0,.18,1) .2s;clip-path:inset(0 0 0 0)}
+.loader span{font-size:clamp(20px,3vw,28px);opacity:0;animation:fadeIn 1s .2s forwards}
+body.loaded .loader{clip-path:inset(0 0 100% 0)}
+@keyframes fadeIn{to{opacity:1}}
+
+/* cursor */
+.cursor,.cursor-dot{mix-blend-mode:difference;position:fixed;left:0;top:0;pointer-events:none;z-index:200;border-radius:50%;display:none}
+.has-cursor .cursor{display:grid}.has-cursor .cursor-dot{display:block}
+.has-cursor,.has-cursor a,.has-cursor button{cursor:none}
+.cursor{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid var(--cur);display:grid;place-items:center;transition:width .4s cubic-bezier(.2,.8,.2,1),height .4s cubic-bezier(.2,.8,.2,1),margin .4s cubic-bezier(.2,.8,.2,1),background .4s,border-color .4s}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--cur)}
+.cursor .lbl{font-family:'Marcellus',serif;font-size:13px;letter-spacing:.1em;color:var(--bg);white-space:nowrap;opacity:0;transition:opacity .3s}
+.cursor.is-link{width:64px;height:64px;margin:-32px 0 0 -32px;background:color-mix(in srgb,var(--cur) 12%,transparent);border-color:transparent}
+.cursor.is-label{width:96px;height:96px;margin:-48px 0 0 -48px;background:var(--ink);border-color:var(--ink);mix-blend-mode:normal}
+.cursor.is-label .lbl{opacity:1}
+.cursor.is-down{transform-origin:center}
+.cursor-dot.hide{opacity:0!important}
+
+/* header */
+.hd{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:transform .6s cubic-bezier(.2,.8,.2,1),background .4s}
+.hd.scrolled{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px)}
+.hd.hide{transform:translateY(-100%)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 32px}
+.logo{display:flex;flex-direction:column;line-height:1.4}
+.logo b{font-weight:700;font-size:20px;letter-spacing:.14em}
+.logo small{font-size:12px;color:var(--muted)}
+.hd.on-hero:not(.scrolled) .logo,.hd.on-hero:not(.scrolled) .gnav a,.hd.on-hero:not(.scrolled) .mbtn{color:#FFFFFF}
+.hd.on-hero:not(.scrolled) .logo small{color:#E9E4DC}
+.gnav{display:flex;gap:28px;align-items:center}
+.gnav a{font-size:15px;padding:8px 0;position:relative}
+.gnav a::after{content:"";position:absolute;left:0;bottom:2px;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gnav a:hover::after{transform:scaleX(1);transform-origin:left}
+.mbtn{background:none;border:0;color:var(--ink);font:inherit;display:flex;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
+.mbtn i{display:block;width:28px;height:8px;position:relative}
+.mbtn i::before,.mbtn i::after{content:"";position:absolute;left:0;width:100%;height:1px;background:currentColor;transition:transform .5s}
+.mbtn i::before{top:0}.mbtn i::after{bottom:0}
+body.menu-open .mbtn i::before{transform:translateY(3.5px) rotate(20deg)}
+body.menu-open .mbtn i::after{transform:translateY(-3.5px) rotate(-20deg)}
+@media (max-width:900px){.gnav{display:none}.hd-in{padding:16px 20px}}
+
+/* menu */
+.menu{position:fixed;inset:0;z-index:45;background:var(--bg2);display:flex;align-items:center;clip-path:circle(0% at calc(100% - 60px) 40px);transition:clip-path 1s cubic-bezier(.77,0,.18,1);padding:calc(96px + env(safe-area-inset-top,0px)) 0 env(safe-area-inset-bottom,0px)}
+body.menu-open .menu{clip-path:circle(150% at calc(100% - 60px) 40px)}
+body.menu-open .hd .logo,body.menu-open .hd .mbtn{color:var(--ink)!important}
+.menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.menu li{overflow:hidden}
+.menu li a{display:flex;align-items:baseline;gap:20px;transform:translateY(110%);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+body.menu-open .menu li a{transform:none}
+.menu li a .en{font-size:clamp(34px,6vw,64px);line-height:1.3}
+.menu li a span:last-child{font-size:14px;color:var(--muted)}
+.menu li a:hover .en{color:var(--accent)}
+
+/* hero */
+.hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;color:#FFFFFF}
+.slides{position:absolute;inset:0}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 2s ease}
+.slide.on{opacity:1}
+.slide svg{transform:scale(1.12);transition:transform 8s linear}
+.slide.on svg{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(20,18,16,.32)}
+.hero-copy{position:absolute;z-index:2;left:max(32px,6vw);bottom:max(80px,12vh);display:flex;flex-direction:column;gap:14px}
+.hero h1{margin:0;font-weight:500;font-size:clamp(36px,6.4vw,84px);line-height:1.35;letter-spacing:.14em}
+.hero .en{font-size:clamp(18px,2vw,26px)}
+.hero-ind{position:absolute;z-index:2;right:32px;bottom:40px;display:flex;align-items:center;gap:14px;font-size:14px}
+.hero-ind .bar{width:120px;height:1px;background:rgba(255,255,255,.4);position:relative;overflow:hidden}
+.hero-ind .bar i{position:absolute;inset:0;background:#FFFFFF;transform-origin:left;transform:scaleX(0)}
+.hero-ind .bar i.run{animation:prog 6s linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+.scroll-cue{position:absolute;z-index:2;left:50%;bottom:0;width:1px;height:72px;background:rgba(255,255,255,.35);overflow:hidden}
+.scroll-cue::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:#FFFFFF;animation:cue 2.4s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes cue{to{top:100%}}
+
+/* split text */
+.split .ch{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.14em;margin-bottom:-.14em}
+.split .ch>span{display:inline-block;transform:translateY(105%);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.split.in .ch>span{transform:none}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s cubic-bezier(.2,.8,.2,1),transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.curtain{position:relative;overflow:hidden;--cov:var(--bg)}
+.feat .curtain,#pastor .curtain{--cov:var(--bg2)}
+.curtain::after{content:"";position:absolute;inset:0;z-index:2;background:var(--cov);transform-origin:top;transition:transform 1.4s cubic-bezier(.77,0,.18,1)}
+.curtain.in::after{transform:scaleY(0)}
+.feat-imgs.curtain{position:sticky}
+@media (max-width:900px){.feat-imgs.curtain{position:relative}}
+.curtain svg{transform:scale(1.2);transition:transform 2s cubic-bezier(.2,.8,.2,1)}
+.curtain.in svg{transform:scale(1)}
+.no-js .rv{opacity:1;transform:none}.no-js .curtain::after{display:none}
+.no-js .split .ch>span{transform:none}
+
+/* sections */
+section{padding:clamp(96px,14vw,180px) 0}
+.sec-hd{display:flex;flex-direction:column;gap:4px;margin-bottom:56px}
+.sec-hd .en{font-size:clamp(44px,7vw,96px);line-height:1;color:var(--ink)}
+.sec-hd h2{margin:0;font-size:15px;font-weight:500;color:var(--muted);letter-spacing:.2em}
+.lead{font-size:clamp(22px,2.6vw,32px);line-height:1.8;font-weight:500;letter-spacing:.12em;margin:0}
+.lead-en{font-size:16px;color:var(--muted);margin:8px 0 0}
+.body{color:var(--muted);margin:0;max-width:34em}
+.more{display:inline-flex;align-items:center;gap:18px;padding:12px 0;font-family:'Marcellus',serif;font-size:17px}
+.more .circ{width:52px;height:52px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .5s,border-color .5s,color .5s}
+.more .circ svg{width:14px;height:14px;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.more:hover .circ{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.more:hover .circ svg{transform:translateX(4px)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.about-text{grid-column:1/7;display:flex;flex-direction:column;gap:32px}
+.about-img1{grid-column:8/13;aspect-ratio:4/5}
+.about-img2{grid-column:5/9;aspect-ratio:4/3;margin-top:-80px}
+@media (max-width:900px){.about-text{grid-column:1/-1}.about-img1{grid-column:3/-1}.about-img2{grid-column:1/9;margin-top:-40px}}
+
+/* features */
+.feat{background:var(--bg2)}
+.feat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px;align-items:start}
+@media (max-width:900px){.feat-grid{grid-template-columns:1fr}}
+.feat-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.feat-list li{border-bottom:1px solid var(--line)}
+.feat-list button{all:unset;display:grid;grid-template-columns:56px 1fr;gap:8px 16px;padding:32px 4px;width:100%;box-sizing:border-box;cursor:pointer}
+.feat-list .num{font-family:'Marcellus',serif;font-size:28px;color:var(--muted);transition:color .4s}
+.feat-list .t{font-size:clamp(18px,2vw,22px);font-weight:700;letter-spacing:.08em}
+.feat-list .d{grid-column:2;color:var(--muted);font-size:15px;max-height:0;overflow:hidden;opacity:0;transition:max-height .8s cubic-bezier(.2,.8,.2,1),opacity .6s}
+.feat-list li.on .d{max-height:200px;opacity:1}
+.feat-list li.on .num{color:var(--accent)}
+.feat-imgs{position:sticky;top:120px;aspect-ratio:4/3;overflow:hidden}
+.feat-imgs>div{position:absolute;inset:0;opacity:0;transform:scale(1.06);transition:opacity 1s,transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.feat-imgs>div.on{opacity:1;transform:none}
+@media (max-width:900px){.feat-imgs{position:relative;top:0}}
+
+/* worship */
+.ws-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+@media (max-width:900px){.ws-grid{grid-template-columns:1fr}}
+.ws-card{background:var(--bg2);padding:clamp(32px,4vw,56px);display:flex;flex-direction:column;gap:20px}
+.ws-card .en{font-size:clamp(28px,3vw,40px);line-height:1.2}
+.ws-card h3{margin:0;font-size:20px;letter-spacing:.1em}
+.ws-list{margin:0;border-top:1px solid var(--line)}
+.ws-list div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ws-list dt{color:var(--muted)}.ws-list dd{margin:0;font-family:'Marcellus',serif;font-size:19px}
+
+/* message carousel */
+.msg-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px}
+.msg-top .sec-hd{margin:0}
+.track{--gut:max(24px,calc((100vw - 1200px)/2));display:flex;gap:28px;overflow-x:auto;padding:0 var(--gut) 24px;scroll-padding-inline:var(--gut);scroll-snap-type:x proximity;scrollbar-width:none;cursor:grab;user-select:none}
+.track::-webkit-scrollbar{display:none}
+.track.drag{cursor:grabbing;scroll-snap-type:none}
+.card{flex:0 0 clamp(260px,30vw,380px);scroll-snap-align:start;display:flex;flex-direction:column;gap:14px}
+.card-img{aspect-ratio:4/3;overflow:hidden}
+.card-img svg{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.card:hover .card-img svg{transform:scale(1.06)}
+.card-meta{display:flex;gap:16px;font-size:13px;color:var(--muted)}
+.card-title{margin:0;font-size:19px;font-weight:700;letter-spacing:.08em}
+.card-sub{margin:0;font-size:14px;color:var(--muted)}
+.progress{width:min(1200px,100% - 48px);margin:32px auto 0;height:1px;background:var(--line);position:relative}
+.progress i{position:absolute;left:0;top:0;height:100%;background:var(--ink);width:20%}
+
+/* pastor */
+.pastor-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.pastor-img{grid-column:1/6;aspect-ratio:4/5}
+.pastor-txt{grid-column:7/13;display:flex;flex-direction:column;gap:28px}
+@media (max-width:900px){.pastor-img{grid-column:1/-1}.pastor-txt{grid-column:1/-1}}
+.links{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.links a{display:flex;justify-content:space-between;padding:18px 4px;border-bottom:1px solid var(--line);transition:padding .5s cubic-bezier(.2,.8,.2,1),color .4s}
+.links a:hover{padding-left:16px;color:var(--accent)}
+
+/* access */
+.acc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px}
+@media (max-width:900px){.acc-grid{grid-template-columns:1fr;gap:40px}}
+.acc-map{aspect-ratio:4/3;overflow:hidden}
+
+/* contact */
+.contact{padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.contact a{display:block;padding:clamp(72px,10vw,140px) 0;overflow:hidden;position:relative}
+.contact .big{display:flex;width:max-content;font-size:clamp(56px,10vw,150px);line-height:1;white-space:nowrap;animation:marq 30s linear infinite;animation-play-state:paused}
+.contact a:hover .big{animation-play-state:running}
+.contact .big span{padding-right:.6em}
+.contact .sub{text-align:center;margin-top:24px;color:var(--muted)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* footer */
+.ft{position:relative;color:#F2EEE7;overflow:hidden;padding:clamp(80px,10vw,120px) 0 40px}
+.ft-bg{position:absolute;inset:0}
+.ft-bg>div{position:absolute;inset:0;opacity:0;transition:opacity 2s}
+.ft-bg>div.on{opacity:1}
+.ft-bg::after{content:"";position:absolute;inset:0;background:rgba(20,18,16,.5)}
+.ft-in{position:relative;display:flex;flex-direction:column;gap:56px}
+.ft-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px}
+.ft nav{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:4px 40px}
+.ft nav a{padding:6px 0;opacity:.85}.ft nav a:hover{opacity:1}
+.sns{display:flex;gap:12px;flex-wrap:wrap}
+.sns a{border:1px solid rgba(242,238,231,.4);border-radius:999px;padding:10px 20px;font-size:14px;transition:background .4s,color .4s}
+.sns a:hover{background:#F2EEE7;color:#24221F}
+.ft small{opacity:.7}
+
+[data-magnetic]{display:inline-block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion: reduce){
+*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.rv,.split .ch>span{opacity:1!important;transform:none!important}.curtain::after{display:none}
+.slide svg{transform:none}
+}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js');</script>
+<div class="loader" aria-hidden="true"><span>福岡中央教会</span></div>
+<div class="cursor" aria-hidden="true"><span class="lbl"></span></div><div class="cursor-dot" aria-hidden="true"></div>
+
+<header class="hd on-hero" id="hd">
+<div class="hd-in">
+<a class="logo" href="#top"><b>福岡中央教会</b><small class="kr">후쿠오카중앙교회</small></a>
+<nav class="gnav" aria-label="メインメニュー">
+<a class="en" href="#about">About</a><a class="en" href="#worship">Worship</a><a class="en" href="#message">Message</a><a class="en" href="#access">Access</a>
+</nav>
+<button class="mbtn en" type="button" aria-expanded="false" aria-controls="menu"><span class="mlbl">Menu</span><i></i></button>
+</div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+<div class="wrap"><ul>
+<li><a href="#about"><span class="en">About</span><span>教会について</span></a></li>
+<li><a href="#features"><span class="en">Welcome</span><span>初めての方へ</span></a></li>
+<li><a href="#worship"><span class="en">Worship</span><span>礼拝のご案内</span></a></li>
+<li><a href="#message"><span class="en">Message</span><span>説教</span></a></li>
+<li><a href="#pastor"><span class="en">Greeting</span><span>牧師より</span></a></li>
+<li><a href="#access"><span class="en">Access</span><span>アクセス</span></a></li>
+</ul></div>
+</div>
+
+<main id="top">
+<div class="hero">
+<div class="slides"><div class="slide on"><svg aria-hidden="true" viewBox="教会堂の外観のイラスト" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#CFE0EA"/><circle cx="1260" cy="210" r="110" fill="#FBEFD3"/><path d="M0 700Q400 600 800 660T1600 640V1000H0Z" fill="#C9D6C3"/><rect x="640" y="380" width="340" height="380" fill="#F4F0E8"/><polygon points="610,390 810,230 1010,390" fill="#B89B80"/><rect x="800" y="120" width="20" height="118" fill="#B89B80"/><rect x="772" y="150" width="76" height="18" fill="#B89B80"/><rect x="690" y="440" width="50" height="100" rx="25" fill="#D8C7A8"/><rect x="880" y="440" width="50" height="100" rx="25" fill="#D8C7A8"/><rect x="770" y="600" width="80" height="160" rx="40" fill="#9C7F63"/><path d="M0 820Q520 760 1000 820T1600 800V1000H0Z" fill="#B7C6AE"/></svg></div><div class="slide"><svg aria-hidden="true" viewBox="光の差し込む礼拝堂のイラスト" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#EFE7DA"/><rect x="560" y="80" width="480" height="560" rx="240" fill="#FBF3DF"/><path d="M800 140V600M600 330H1000" stroke="#E8D8B6" stroke-width="18"/><polygon points="560,640 1040,640 1400,1000 200,1000" fill="#F6EFE2" opacity=".7"/><rect x="260" y="720" width="420" height="36" rx="8" fill="#B08E6E"/><rect x="920" y="720" width="420" height="36" rx="8" fill="#B08E6E"/><rect x="180" y="820" width="500" height="36" rx="8" fill="#B08E6E"/><rect x="920" y="820" width="500" height="36" rx="8" fill="#B08E6E"/><rect x="100" y="920" width="580" height="36" rx="8" fill="#B08E6E"/><rect x="920" y="920" width="580" height="36" rx="8" fill="#B08E6E"/></svg></div><div class="slide"><svg aria-hidden="true" viewBox="集う人々のイラスト" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#E3EBE1"/><circle cx="300" cy="200" r="90" fill="#FBEFD3"/><rect y="760" width="1600" height="240" fill="#CFDCC9"/><g transform="translate(520 520) scale(3)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#8FA3B8"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#3A2E26"/></g><g transform="translate(800 470) scale(3.3)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#C79B7A"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#2E2A26"/></g><g transform="translate(1080 520) scale(3)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#9DB08F"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#5A3A22"/></g><g transform="translate(660 640) scale(2.2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#E2B97E"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#3B2A20"/></g><g transform="translate(940 640) scale(2.2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#B98C9E"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#2B2B2B"/></g></svg></div><div class="slide"><svg aria-hidden="true" viewBox="開かれた聖書と光のイラスト" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#F2EBDF"/><path d="M380 640Q600 560 800 640Q1000 560 1220 640V720Q1000 640 800 720Q600 640 380 720Z" fill="#FFFFFF"/><path d="M800 640V720" stroke="#D9CBB4" stroke-width="6"/><path d="M470 600h260M470 560h260M870 600h260M870 560h260" stroke="#E2D6C3" stroke-width="10" stroke-linecap="round"/><circle cx="1180" cy="230" r="80" fill="#FBE3B0" opacity=".9"/><path d="M1180 230L800 640" stroke="#FBE9C4" stroke-width="140" opacity=".35"/></svg></div></div>
+<div class="hero-copy">
+<h1 class="split hero-split">祈り、灯る場所</h1>
+<p class="en rv hero-rv" style="margin:0">A place where prayer is kindled.</p>
+<p class="kr rv hero-rv" style="margin:0;font-size:15px">기도가 밝혀지는 곳</p>
+</div>
+<div class="hero-ind en" aria-hidden="true"><span class="cur">01</span><span class="bar"><i></i></span><span>04</span></div>
+<span class="scroll-cue" aria-hidden="true"></span>
+</div>
+
+<section id="about">
+<div class="wrap">
+<div class="sec-hd"><span class="en split">About</span><h2>教会について</h2></div>
+<div class="about-grid">
+<div class="about-text">
+<p class="lead split">ふたつのことばで、<br>ひとつの礼拝を。</p>
+<p class="lead-en en rv">Two languages, one worship.</p>
+<p class="body rv">福岡中央教会は、在日大韓基督教会総会・西南地方会に属する教会です。1985年7月7日の創立から、天神のほど近く、長浜の街角で礼拝をささげてきました。日本で生まれ育った方、韓国から来られた方、日本国籍の方。さまざまな背景を持つ人々が、韓国語と日本語の説教に耳を傾け、ともに祈っています。</p>
+<a class="more rv" href="https://fukchurch.org/intro/"><span>View more</span><span class="circ"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span></a>
+</div>
+<div class="about-img1 curtain" data-parallax="-0.08"><svg role="img" aria-label="教会の外観のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#D7E3EA"/><rect x="250" y="160" width="300" height="340" fill="#F4F0E8"/><polygon points="230,170 400,60 570,170" fill="#B89B80"/><rect x="360" y="370" width="80" height="130" rx="40" fill="#9C7F63"/></svg></div>
+<div class="about-img2 curtain" data-parallax="0.06"><svg role="img" aria-label="讃美する人々のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#EFE7DA"/><g transform="translate(280 250) scale(2.2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#8FA3B8"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#3A2E26"/></g><g transform="translate(520 250) scale(2.2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#C79B7A"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#2B2B2B"/></g><text x="380" y="160" font-size="80" fill="#B08E6E">♪</text></svg></div>
+</div>
+</div>
+</section>
+
+<section class="feat" id="features">
+<div class="wrap">
+<div class="sec-hd"><span class="en split">Welcome</span><h2>初めての方へ</h2></div>
+<div class="feat-grid">
+<div>
+<p class="lead split" style="margin-bottom:40px">教会が初めての方も、<br>どうぞそのままで。</p>
+<ul class="feat-list">
+<li class="on"><button type="button" data-feat="0"><span class="num">01</span><span class="t">ことばの心配はいりません</span><span class="d">説教は韓国語と日本語の両方で行っています。どちらのことばの方も、安心して礼拝に加われます。</span></button></li>
+<li><button type="button" data-feat="1"><span class="num">02</span><span class="t">さまざまな人が、ともに</span><span class="d">日本生まれの方、韓国から来られた方、日本国籍の方。背景の異なる人々が、同じ礼拝堂に集っています。</span></button></li>
+<li><button type="button" data-feat="2"><span class="num">03</span><span class="t">1985年から、この街で</span><span class="d">1985年7月7日に創立。40年近く、福岡の街とともに歩んできた教会です。</span></button></li>
+</ul>
+</div>
+<div class="feat-imgs curtain"><div class="on"><svg role="img" aria-label="日本語と韓国語の聖書のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#E8EEF2"/><rect x="140" y="180" width="520" height="260" rx="10" fill="#FFFFFF"/><path d="M200 250h180M200 300h150M200 350h170M440 250h160M440 300h140M440 350h150" stroke="#C9B89E" stroke-width="14" stroke-linecap="round"/><path d="M400 180v260" stroke="#E2D6C3" stroke-width="6"/></svg></div><div class=""><svg role="img" aria-label="さまざまな人のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#F2EBDF"/><g transform="translate(220 240) scale(2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#8FA3B8"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#3A2E26"/></g><g transform="translate(400 220) scale(2.2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#C79B7A"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#2B2B2B"/></g><g transform="translate(580 240) scale(2)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#9DB08F"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#5A3A22"/></g></svg></div><div class=""><svg role="img" aria-label="長く続く教会のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#DCE6D6"/><rect x="300" y="200" width="200" height="260" fill="#F4F0E8"/><polygon points="280,210 400,120 520,210" fill="#B89B80"/><circle cx="620" cy="140" r="56" fill="#FBEFD3"/><path d="M0 460H800" stroke="#B7C6AE" stroke-width="20"/></svg></div></div>
+</div>
+</div>
+</section>
+
+<section id="worship">
+<div class="wrap">
+<div class="sec-hd"><span class="en split">Worship</span><h2>礼拝のご案内</h2></div>
+<p class="body rv" style="margin-bottom:48px">ご予約は必要ありません。時間になりましたら、そのままお入りください。</p>
+<div class="ws-grid">
+<div class="ws-card rv"><span class="en">Sunday</span><h3>日曜日の礼拝</h3>
+<dl class="ws-list"><div><dt>主日礼拝 1部</dt><dd>9:30</dd></div><div><dt>教会学校</dt><dd>10:30</dd></div><div><dt>主日礼拝 2部</dt><dd>11:00</dd></div><div><dt>主日午後礼拝</dt><dd>13:30</dd></div></dl></div>
+<div class="ws-card rv"><span class="en">Weekdays</span><h3>平日・土曜の集会</h3>
+<dl class="ws-list"><div><dt>水曜礼拝</dt><dd>19:30</dd></div><div><dt>青年会礼拝（土曜）</dt><dd>19:30</dd></div><div><dt>早朝祈祷会（日・月休み）</dt><dd>5:30</dd></div></dl></div>
+</div>
+</div>
+</section>
+
+<section id="message" style="padding-bottom:clamp(96px,12vw,160px)">
+<div class="wrap msg-top">
+<div class="sec-hd"><span class="en split">Message</span><h2>今週の説教</h2></div>
+<a class="more" href="sermons.html" data-magnetic><span>View all</span><span class="circ"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span></a>
+</div>
+<div class="track" data-cursor="Drag"><a class="card" href="sermons.html" data-cursor="Read">
+<div class="card-img"><svg aria-hidden="true" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#E8EEF2"/><path d="M260 380Q400 300 540 380V420Q400 340 260 420Z" fill="#FFFFFF"/><circle cx="560" cy="180" r="60" fill="#FBEFD3"/></svg></div>
+<div class="card-meta"><span class="en">2026.[11.01]</span><span>主日礼拝</span></div>
+<p class="card-title">[説教タイトル]</p><p class="card-sub">[聖書箇所]</p></a><a class="card" href="sermons.html" data-cursor="Read">
+<div class="card-img"><svg aria-hidden="true" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#F2EBDF"/><path d="M260 380Q400 300 540 380V420Q400 340 260 420Z" fill="#FFFFFF"/><circle cx="520" cy="180" r="60" fill="#FBEFD3"/></svg></div>
+<div class="card-meta"><span class="en">2026.[10.25]</span><span>主日礼拝</span></div>
+<p class="card-title">[説教タイトル]</p><p class="card-sub">[聖書箇所]</p></a><a class="card" href="sermons.html" data-cursor="Read">
+<div class="card-img"><svg aria-hidden="true" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#E3EBE1"/><path d="M260 380Q400 300 540 380V420Q400 340 260 420Z" fill="#FFFFFF"/><circle cx="480" cy="180" r="60" fill="#FBEFD3"/></svg></div>
+<div class="card-meta"><span class="en">2026.[10.18]</span><span>主日礼拝</span></div>
+<p class="card-title">[説教タイトル]</p><p class="card-sub">[聖書箇所]</p></a><a class="card" href="sermons.html" data-cursor="Read">
+<div class="card-img"><svg aria-hidden="true" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#EFE7DA"/><path d="M260 380Q400 300 540 380V420Q400 340 260 420Z" fill="#FFFFFF"/><circle cx="440" cy="180" r="60" fill="#FBEFD3"/></svg></div>
+<div class="card-meta"><span class="en">2026.[10.11]</span><span>主日礼拝</span></div>
+<p class="card-title">[説教タイトル]</p><p class="card-sub">[聖書箇所]</p></a><a class="card" href="sermons.html" data-cursor="Read">
+<div class="card-img"><svg aria-hidden="true" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#E8EEF2"/><path d="M260 380Q400 300 540 380V420Q400 340 260 420Z" fill="#FFFFFF"/><circle cx="400" cy="180" r="60" fill="#FBEFD3"/></svg></div>
+<div class="card-meta"><span class="en">2026.[10.04]</span><span>主日礼拝</span></div>
+<p class="card-title">[説教タイトル]</p><p class="card-sub">[聖書箇所]</p></a></div>
+<div class="progress" aria-hidden="true"><i></i></div>
+</section>
+
+<section id="pastor" style="background:var(--bg2)">
+<div class="wrap pastor-grid">
+<div class="pastor-img curtain"><svg role="img" aria-label="牧師の写真に差し替える位置のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#EDE5D8"/><g transform="translate(400 230) scale(3.4)"><rect x="-22" y="18" width="44" height="64" rx="22" fill="#7D8E7A"/><circle r="17" fill="#EBCDAF"/><path d="M-17 -3a17 17 0 0 1 34 0q-17-8-34 0z" fill="#2E2A26"/></g></svg></div>
+<div class="pastor-txt">
+<div class="sec-hd" style="margin:0"><span class="en split">Greeting</span><h2>牧師より</h2></div>
+<p class="lead split">日本で暮らす、すべての方を<br>心から歓迎いたします。</p>
+<p class="body rv">福岡で教会を探している方は、ぜひ一度訪ねてみてください。礼拝堂でお会いできる日を、楽しみにお待ちしています。</p>
+<p class="rv" style="margin:0">担任牧師　辛 治善 <span class="kr" style="color:var(--muted);margin-left:8px">신치선</span></p>
+<ul class="links rv">
+<li><a href="https://fukchurch.org/intro/"><span>牧師のごあいさつ（全文）</span><span class="en">→</span></a></li>
+<li><a href="https://fukchurch.org/history/"><span>教会の歩み</span><span class="en">→</span></a></li>
+<li><a href="https://fukchurch.org/reference/"><span>説教・賛美の資料</span><span class="en">→</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="access">
+<div class="wrap">
+<div class="sec-hd"><span class="en split">Access</span><h2>アクセス</h2></div>
+<div class="acc-grid">
+<div style="display:flex;flex-direction:column;gap:24px">
+<p class="lead rv" style="font-size:clamp(18px,2vw,22px)">〒810-0072<br>福岡県福岡市中央区長浜3丁目1-8</p>
+<dl class="ws-list rv"><div><dt>TEL</dt><dd><a href="tel:0927071721">092-707-1721</a></dd></div><div><dt>MAIL</dt><dd style="font-size:15px"><a href="mailto:fukuokachuochurch@gmail.com">fukuokachuochurch@gmail.com</a></dd></div><div><dt>最寄り駅</dt><dd style="font-size:15px">[駅名から徒歩◯分]</dd></div><div><dt>駐車場</dt><dd style="font-size:15px">[有無]</dd></div></dl>
+<a class="more rv" href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A6%8F%E5%B2%A1%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E9%95%B7%E6%B5%9C3-1-8" target="_blank" rel="noopener" data-magnetic><span>Google Map</span><span class="circ"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span></a>
+</div>
+<div class="acc-map curtain"><svg role="img" aria-label="地図のイラスト" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><rect width="800" height="600" fill="#E4EBDF"/><path d="M0 220H800M0 420H800M220 0V600M560 0V600" stroke="#FFFFFF" stroke-width="26"/><rect x="0" y="0" width="800" height="110" fill="#CFE0EA"/><path d="M380 330c0-50 80-50 80 0 0 40-40 80-40 80s-40-40-40-80z" fill="#B0634C"/><circle cx="420" cy="328" r="14" fill="#FFFFFF"/></svg></div>
+</div>
+</div>
+</section>
+
+<div class="contact">
+<a href="mailto:fukuokachuochurch@gmail.com" data-cursor="Mail">
+<div class="big en" aria-hidden="true"><span>Get in Touch</span><span>Get in Touch</span><span>Get in Touch</span><span>Get in Touch</span></div>
+<p class="sub">お問い合わせ・初めての方のご相談はこちら</p>
+</a>
+</div>
+</main>
+
+<footer class="ft">
+<div class="ft-bg"><div class="on"><svg aria-hidden="true" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#3B3F3C"/><circle cx="1200" cy="260" r="110" fill="#E9D7B5" opacity=".6"/><rect x="660" y="420" width="280" height="360" fill="#4D4B45"/><polygon points="630,430 800,290 970,430" fill="#57524A"/><rect x="760" y="520" width="80" height="140" rx="40" fill="#E7C27A" opacity=".85"/></svg></div><div class=""><svg aria-hidden="true" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"><rect width="1600" height="1000" fill="#36403E"/><circle cx="200" cy="200" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="400" cy="120" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="700" cy="260" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="1000" cy="150" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="1300" cy="300" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="1450" cy="120" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="900" cy="80" r="4" fill="#F3E3BC" opacity=".7"/><circle cx="300" cy="380" r="4" fill="#F3E3BC" opacity=".7"/><path d="M0 760Q800 640 1600 760V1000H0Z" fill="#2C3330"/></svg></div></div>
+<div class="wrap ft-in">
+<div class="ft-top">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:22px;letter-spacing:.16em">福岡中央教会</span>
+<span class="kr" style="font-size:14px;opacity:.8">후쿠오카중앙교회</span>
+<span style="font-size:14px;opacity:.8;line-height:2">〒810-0072 福岡市中央区長浜3丁目1-8<br>TEL 092-707-1721</span>
+</div>
+<nav aria-label="フッターメニュー">
+<a class="en" href="#about">About</a><a class="en" href="#worship">Worship</a><a class="en" href="#features">Welcome</a><a class="en" href="#message">Message</a><a class="en" href="#pastor">Greeting</a><a class="en" href="#access">Access</a>
+</nav>
+</div>
+<div class="sns">
+<a href="https://www.youtube.com/channel/UCvT4we_DUOTJrDzo_u7gYMg" target="_blank" rel="noopener">YouTube</a>
+<a href="https://www.instagram.com/fcc.friends" target="_blank" rel="noopener">Instagram</a>
+<a href="https://m.facebook.com/chuochurch.fukuoka" target="_blank" rel="noopener">Facebook</a>
+<a href="https://cafe.naver.com/withfukuokachurch" target="_blank" rel="noopener">Naver Cafe</a>
+</div>
+<small class="en">© Fukuoka Chuo Church</small>
+</div>
+</footer>
+
+<script>
+(function(){
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $ = function(s,c){return (c||document).querySelector(s)}, $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+
+/* split text into chars */
+$$('.split').forEach(function(el){
+  var html=''; var i=0;
+  el.innerHTML.split(/(<br\s*\/?>)/).forEach(function(part){
+    if(/^<br/.test(part)){html+=part;return}
+    Array.from(part).forEach(function(c){
+      if(c===' '){html+=' ';return}
+      html+='<span class="ch"><span style="transition-delay:'+(i*0.045).toFixed(3)+'s">'+c+'</span></span>'; i++;
+    });
+  });
+  el.setAttribute('aria-label', el.textContent);
+  el.innerHTML=html;
+});
+
+/* loader */
+window.addEventListener('load', start); setTimeout(start, 1800);
+var started=false;
+function start(){
+  if(started) return; started=true;
+  setTimeout(function(){
+    document.body.classList.add('loaded');
+    setTimeout(function(){ $$('.hero-split').forEach(function(e){e.classList.add('in')}); $$('.hero-rv').forEach(function(e,i){setTimeout(function(){e.classList.add('in')},500+i*200)}); runBar(); }, 700);
+  }, reduce?0:900);
+}
+
+/* reveal on scroll */
+var io = new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);} })}, {threshold:.18, rootMargin:'0px 0px -6% 0px'});
+$$('.rv:not(.hero-rv), .curtain, .split:not(.hero-split)').forEach(function(el){io.observe(el)});
+
+/* hero slideshow */
+var slides=$$('.slide'), cur=0, curEl=$('.hero-ind .cur'), bar=$('.hero-ind .bar i');
+function runBar(){ if(!bar) return; bar.classList.remove('run'); void bar.offsetWidth; bar.classList.add('run'); }
+if(slides.length) setInterval(function(){ slides[cur].classList.remove('on'); cur=(cur+1)%slides.length; slides[cur].classList.add('on'); curEl.textContent=('0'+(cur+1)).slice(-2); runBar(); }, 6000);
+
+/* footer slideshow */
+var fb=$$('.ft-bg>div'), fi=0; if(fb.length>1) setInterval(function(){ fb[fi].classList.remove('on'); fi=(fi+1)%fb.length; fb[fi].classList.add('on'); }, 5000);
+
+/* header */
+var hd=$('#hd'), lastY=0, heroH=$('.hero')?window.innerHeight:0;
+function onScroll(){
+  var y=window.scrollY;
+  hd.classList.toggle('scrolled', y>heroH-80);
+  hd.classList.toggle('hide', y>lastY && y>200 && !document.body.classList.contains('menu-open'));
+  lastY=y;
+  parallax();
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('resize', function(){heroH=$('.hero')?window.innerHeight:0}); onScroll();
+
+/* parallax */
+var px=$$('[data-parallax]');
+function parallax(){
+  if(reduce || !px) return;
+  px.forEach(function(el){ var r=el.getBoundingClientRect(); var c=r.top+r.height/2-window.innerHeight/2; el.style.translate='0 '+(c*parseFloat(el.dataset.parallax)).toFixed(1)+'px'; });
+}
+
+/* menu */
+var mbtn=$('.mbtn'), menu=$('#menu');
+mbtn.addEventListener('click', function(){
+  var open=document.body.classList.toggle('menu-open');
+  mbtn.setAttribute('aria-expanded', open); menu.setAttribute('aria-hidden', !open);
+  $('.mlbl').textContent = open?'Close':'Menu';
+  $$('.menu li a').forEach(function(a,i){ a.style.transitionDelay = open ? (0.3+i*0.07)+'s' : '0s'; });
+});
+$$('.menu a').forEach(function(a){ a.addEventListener('click', function(){ if(document.body.classList.contains('menu-open')) mbtn.click(); }) });
+
+/* features */
+var feats=$$('.feat-list li'), fimgs=$$('.feat-imgs>div');
+$$('.feat-list button').forEach(function(b){
+  function act(){ var n=+b.dataset.feat; feats.forEach(function(l,i){l.classList.toggle('on',i===n)}); fimgs.forEach(function(d,i){d.classList.toggle('on',i===n)}); }
+  b.addEventListener('mouseenter', act); b.addEventListener('click', act); b.addEventListener('focus', act);
+});
+
+/* drag carousel */
+var tr=$('.track'), prog=$('.progress i'), down=false, sx=0, sl=0, moved=false;
+if(tr){
+tr.addEventListener('pointerdown', function(e){ if(e.pointerType!=='mouse') return; down=true; moved=false; sx=e.clientX; sl=tr.scrollLeft; tr.classList.add('drag'); });
+window.addEventListener('pointermove', function(e){ if(!down) return; var dx=e.clientX-sx; if(Math.abs(dx)>4) moved=true; tr.scrollLeft=sl-dx; });
+window.addEventListener('pointerup', function(){ down=false; tr.classList.remove('drag'); });
+tr.addEventListener('click', function(e){ if(moved){ e.preventDefault(); moved=false; } }, true);
+tr.addEventListener('dragstart', function(e){e.preventDefault()});
+function upd(){ var max=tr.scrollWidth-tr.clientWidth; var w=tr.clientWidth/tr.scrollWidth*100; prog.style.width=w+'%'; prog.style.left=(max>0? tr.scrollLeft/max*(100-w):0)+'%'; }
+tr.addEventListener('scroll', upd, {passive:true}); window.addEventListener('resize', upd); upd();
+}
+
+/* custom cursor */
+var fine=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if(fine && !reduce){
+  document.documentElement.classList.add('has-cursor');
+  var cu=$('.cursor'), dot=$('.cursor-dot'), lbl=$('.cursor .lbl');
+  var mx=innerWidth/2, my=innerHeight/2, cx=mx, cy=my;
+  window.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; dot.style.transform='translate('+mx+'px,'+my+'px)'; });
+  (function loop(){ cx+=(mx-cx)*.16; cy+=(my-cy)*.16; cu.style.transform='translate('+cx+'px,'+cy+'px)'; requestAnimationFrame(loop); })();
+  document.addEventListener('mouseover', function(e){
+    var lab=e.target.closest('[data-cursor]'), link=e.target.closest('a,button');
+    cu.classList.remove('is-link','is-label'); dot.classList.remove('hide');
+    if(lab && (!link || link===lab || lab.contains(link))){ lbl.textContent=lab.dataset.cursor; cu.classList.add('is-label'); dot.classList.add('hide'); }
+    else if(link){ cu.classList.add('is-link'); }
+  });
+  document.addEventListener('mouseleave', function(){cu.style.opacity=0;dot.style.opacity=0});
+  document.addEventListener('mouseenter', function(){cu.style.opacity=1;dot.style.opacity=1});
+  /* magnetic */
+  $$('[data-magnetic]').forEach(function(el){
+    el.addEventListener('mousemove', function(e){ var r=el.getBoundingClientRect(); el.style.transform='translate('+((e.clientX-r.left-r.width/2)*.25)+'px,'+((e.clientY-r.top-r.height/2)*.35)+'px)'; });
+    el.addEventListener('mouseleave', function(){ el.style.transform=''; });
+  });
+}
+})();
+</script>
+</body>
+</html>
